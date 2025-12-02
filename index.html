@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UNMASK · Purity & Power Companion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="A standalone companion app to help you break free from engineered sexualization, porn and masturbation habits, and reclaim your energy, faith, and focus."
+  />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #020617;
+      --card: #ffffff;
+      --card-soft: #f9fafb;
+      --text: #0f172a;
+      --text-soft: #6b7280;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --accent-strong: #1d4ed8;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.35);
+      --shadow-light: 0 10px 30px rgba(15, 23, 42, 0.18);
+      --border-subtle: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 32px;
+    }
+
+    header {
+      margin-bottom: 18px;
+    }
+
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: #e5e7eb;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .app-badge span.icon {
+      display: inline-flex;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 10%, #f59e0b, #ef4444);
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero {
+      margin-top: 10px;
+      padding: 20px 18px 20px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, #1d4ed8 0, #020617 52%);
+      box-shadow: var(--shadow-soft);
+      color: #e5e7eb;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 18px 16px;
+      }
+    }
+
+    .hero h1 {
+      margin: 4px 0 10px;
+      font-size: clamp(26px, 4vw, 32px);
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #cbd5f5;
+      max-width: 36rem;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.6);
+      color: #d1d5db;
+      white-space: nowrap;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease,
+        color 0.12s ease, border-color 0.12s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      box-shadow: 0 12px 25px rgba(22, 163, 74, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 35px rgba(22, 163, 74, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .hero-metrics {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 18px;
+      padding: 12px 12px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .metric-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .metric-pill {
+      border-radius: 14px;
+      padding: 7px 9px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: #cbd5f5;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .metric-pill span.value {
+      font-weight: 600;
+      font-size: 13px;
+      color: #f9fafb;
+    }
+
+    .metric-pill span.label {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    .metric-quote {
+      padding: 7px 9px;
+      border-radius: 14px;
+      background: rgba(8, 47, 73, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      font-size: 11px;
+      color: #e0f2fe;
+      line-height: 1.5;
+    }
+
+    .metric-quote span.quote-mark {
+      font-size: 15px;
+      margin-right: 4px;
+      opacity: 0.8;
+    }
+
+    /* NAVIGATION */
+
+    .nav-shell {
+      margin-top: 14px;
+      background: rgba(15, 23, 42, 0.94);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      position: sticky;
+      top: 8px;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-button {
+      flex: 1 1 auto;
+      min-width: 90px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease,
+        box-shadow 0.08s ease;
+      white-space: nowrap;
+    }
+
+    .nav-button span.emoji {
+      margin-right: 4px;
+    }
+
+    .nav-button.active {
+      background: #f9fafb;
+      color: #0f172a;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .nav-button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* MAIN LAYOUT */
+
+    main {
+      margin-top: 16px;
+    }
+
+    .section {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .section-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-light);
+      border: var(--border-subtle);
+    }
+
+    .card-soft {
+      background: var(--card-soft);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 12px;
+      border: var(--border-subtle);
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .card h3 {
+      margin: 12px 0 4px;
+      font-size: 14px;
+    }
+
+    .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-strong);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-soft);
+      margin: 4px 0 8px;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 4px 0 8px;
+    }
+
+    li {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .pill-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border: 1px solid rgba(37, 99, 235, 0.35);
+      white-space: nowrap;
+    }
+
+    .tag.muted {
+      background: rgba(148, 163, 184, 0.16);
+      color: #4b5563;
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    .highlight-box {
+      background: #ecfdf5;
+      border-radius: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(22, 163, 74, 0.4);
+      font-size: 12px;
+      color: #166534;
+      margin-top: 6px;
+    }
+
+    .highlight-box.danger {
+      background: #fef2f2;
+      border-color: rgba(220, 38, 38, 0.55);
+      color: #b91c1c;
+    }
+
+    .two-col-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 12px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .badge-list-item {
+      background: rgba(15, 23, 42, 0.02);
+      border-radius: 10px;
+      padding: 5px 8px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+    }
+
+    .badge-list-item strong {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: block;
+      margin-bottom: 2px;
+      color: #4b5563;
+    }
+
+    /* TOOLING / FORM ELEMENTS */
+
+    .tool-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .checkbox-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 12px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      background: rgba(248, 250, 252, 0.8);
+      border: 1px solid rgba(209, 213, 219, 0.7);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      margin-top: 2px;
+    }
+
+    .small-text {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      padding: 7px 8px;
+      font-size: 12px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 70px;
+      background: #f9fafb;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      outline: 2px solid rgba(37, 99, 235, 0.3);
+      border-color: var(--accent-strong);
+      background: #ffffff;
+    }
+
+    .tool-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 7px;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: white;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.1s ease, transform 0.08s ease, box-shadow 0.08s ease;
+    }
+
+    .btn-sm.primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent-strong);
+    }
+
+    .btn-sm.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: rgba(220, 38, 38, 0.6);
+    }
+
+    .btn-sm.ghost {
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    .btn-sm:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-sm:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .output-box {
+      margin-top: 6px;
+      padding: 7px 9px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .stat-chip {
+      border-radius: 12px;
+      padding: 6px 8px;
+      background: #eff6ff;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-chip.green {
+      background: #ecfdf5;
+      border-color: rgba(22, 163, 74, 0.55);
+      color: #166534;
+    }
+
+    .stat-chip.red {
+      background: #fef2f2;
+      border-color: rgba(220, 38, 38, 0.7);
+      color: #b91c1c;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .disclaimer {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #9ca3af;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <header>
+      <div class="app-badge">
+        <span class="icon"></span>
+        <span>Unmask · Sexual Engineering Resistance</span>
+      </div>
+
+      <section class="hero">
+        <div>
+          <h1>Unmask – Purity & Power Companion</h1>
+          <p class="hero-subtitle">
+            A quiet space to understand how sexual conditioning is engineered, protect
+            your heart and brain from porn & compulsive habits, and rebuild a life of
+            clarity, faith, and real connection.
+          </p>
+          <div class="hero-pills">
+            <span class="pill">Science + Spirit</span>
+            <span class="pill">NoFap / reboot support</span>
+            <span class="pill">Faith-friendly</span>
+            <span class="pill">Local & private</span>
+          </div>
+          <div class="hero-cta">
+            <button class="btn-primary" data-jump="tracker">
+              <span>Start my purity streak</span> <span>⏱️</span>
+            </button>
+            <button class="btn-ghost" data-jump="toolkit">
+              <span>Show my emergency plan</span> <span>🛡️</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="hero-metrics" aria-label="quick stats">
+          <div>
+            <div class="metric-title">
+              <span>Why this matters</span>
+              <span style="font-size:11px;color:#93c5fd;">engineered, not random</span>
+            </div>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <span class="value">Brain</span>
+                <span class="label">Porn builds addiction-like wiring, numbing real joy.</span>
+              </div>
+              <div class="metric-pill">
+                <span class="value">Soul</span>
+                <span class="label">Lust pulls you away from presence, prayer, and peace.</span>
+              </div>
+              <div class="metric-pill">
+                <span class="value">Story</span>
+                <span class="label">Media profits from you staying weak & distracted.</span>
+              </div>
+            </div>
+          </div>
+          <div class="metric-quote">
+            <span class="quote-mark">“</span>
+            Every urge resisted is not just a “no” to lust – it is a “yes” to your future
+            self, your family, and your Lord.
+          </div>
+        </aside>
+      </section>
+
+      <nav class="nav-shell" aria-label="Main navigation">
+        <button class="nav-button active" data-section-btn="learn">
+          <span class="emoji">📚</span> Learn
+        </button>
+        <button class="nav-button" data-section-btn="brain">
+          <span class="emoji">🧠</span> Brain & Body
+        </button>
+        <button class="nav-button" data-section-btn="faith">
+          <span class="emoji">🕊️</span> Faith & Spirit
+        </button>
+        <button class="nav-button" data-section-btn="toolkit">
+          <span class="emoji">🛡️</span> Toolkit
+        </button>
+        <button class="nav-button" data-section-btn="plan">
+          <span class="emoji">📅</span> Daily Plan
+        </button>
+        <button class="nav-button" data-section-btn="tracker">
+          <span class="emoji">🔥</span> Streak & Notes
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- LEARN SECTION -->
+      <section class="section active" data-section="learn">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Understand the game</div>
+            <h2>From taboo to “healthy” to hijacked</h2>
+            <p>
+              For most of history, self-stimulation and casual lust were seen as something
+              dangerous for body and soul. In the last 100 years, a different story was
+              engineered: “it’s harmless, it’s medicine, everyone does it.”
+            </p>
+            <p>
+              Early sex researchers, psychoanalysis, and later the “sexual revolution”
+              worked together with industry, media, and advertising. What began as
+              challenging shame slowly turned into a culture that treats constant
+              stimulation as normal – even virtuous.
+            </p>
+            <p>
+              Today, you are surrounded by hyper-sexual images, porn in your pocket, and
+              a narrative that says “any restraint is repressed, unhealthy, or
+              old-fashioned.” That story is not neutral – it is profitable.
+            </p>
+
+            <h3>What’s really at stake?</h3>
+            <ul>
+              <li>Mental health: higher anxiety, depression, brain fog, loneliness.</li>
+              <li>Relationships: distance from real partners, unrealistic expectations, betrayal.</li>
+              <li>Masculinity & femininity: drained drive, warped sense of self, objectification.</li>
+              <li>Spiritual life: guilt, numbness in worship, broken connection with the Divine.</li>
+            </ul>
+
+            <div class="highlight-box">
+              You are not “broken” for being affected by this. The system is designed to
+              hook you. The goal of this app is to help you opt out – calmly, intelligently,
+              and with honour.
+            </div>
+
+            <div class="pill-tag-row">
+              <span class="tag">Engineered sexual narrative</span>
+              <span class="tag muted">De-programming</span>
+              <span class="tag muted">Hope & agency</span>
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">Micro-reflection</div>
+            <p class="small-text">
+              Take 30 seconds and honestly answer these. Don’t overthink – just feel.
+            </p>
+            <div class="two-col-list">
+              <div class="badge-list-item">
+                <strong>Q1 · Direction</strong>
+                After a binge or compulsive session, do I feel aligned with who I want to be?
+              </div>
+              <div class="badge-list-item">
+                <strong>Q2 · Energy</strong>
+                Is this habit giving me energy to live fully, or quietly draining me?
+              </div>
+              <div class="badge-list-item">
+                <strong>Q3 · Connection</strong>
+                Does this bring me closer to real people and my Creator – or away?
+              </div>
+              <div class="badge-list-item">
+                <strong>Q4 · Truth</strong>
+                If a younger sibling/child copied my current pattern, would I be at peace?
+              </div>
+            </div>
+            <p class="small-text" style="margin-top:8px;">
+              If your heart whispers “no” to any of these, that’s not shame – that’s your
+              fitrah (natural conscience) waking up. That voice is your ally in this journey.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- BRAIN & BODY SECTION -->
+      <section class="section" data-section="brain">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Science, simply</div>
+            <h2>What porn & compulsive release do to your brain</h2>
+            <p>
+              Your brain’s reward system was built to celebrate real life: achievement,
+              intimacy, worship, service. Modern porn hijacks that wiring with endless
+              novelty and pixels that your brain interprets as “unlimited mates.”
+            </p>
+            <ul>
+              <li>
+                <strong>Dopamine overload:</strong> each session is a high hit of dopamine.
+                Over time your brain becomes less sensitive – you need more intensity or
+                variety just to feel “normal.”
+              </li>
+              <li>
+                <strong>Tolerance & escalation:</strong> what once shocked you becomes
+                boring; you slide to more extreme content that clashes with your values.
+              </li>
+              <li>
+                <strong>Crash phase:</strong> after release, dopamine drops and prolactin
+                rises. Used occasionally, this is fine. Used constantly, it’s a recipe for
+                fatigue, low mood, and brain fog.
+              </li>
+              <li>
+                <strong>Attachment rewired:</strong> the brain starts to bond with screens
+                instead of real faces. Social anxiety, isolation, and motivation problems
+                often follow.
+              </li>
+            </ul>
+
+            <h3>Medical myths vs reality</h3>
+            <ul>
+              <li>
+                “You must do it often or you’ll get sick” – evidence is mixed, and extremism
+                in any direction is not the solution. Overall lifestyle, not daily ejaculation,
+                drives your health.
+              </li>
+              <li>
+                “It boosts immunity and performance” – there are small, temporary effects,
+                but nothing close to a magic cure. Sleep, diet, exercise, and stress
+                management matter far more.
+              </li>
+            </ul>
+
+            <div class="highlight-box danger">
+              The real risk is not “one orgasm.” It’s the cycle: trigger → fantasy →
+              compulsive porn → release → guilt & fog → repeat. Breaking that loop is where
+              your freedom lives.
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">Trigger scan · where does it start?</div>
+            <p class="small-text">
+              Tick what usually comes right before your slips. Then hit “Generate plan.”
+            </p>
+            <div class="checkbox-list" id="trigger-list">
+              <label class="checkbox-item">
+                <input type="checkbox" value="late-night phone in bed" />
+                <span>Late-night scrolling alone in bed.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="boredom / procrastination" />
+                <span>Boredom or avoiding work / study.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="loneliness or emotional pain" />
+                <span>Feeling lonely, rejected, or emotionally numb.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="social media explore / reels" />
+                <span>“Explore” pages, reels, or suggestive feeds.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="stress after a long day" />
+                <span>Stress relief after work, exams, or conflict.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="staying in the bathroom too long" />
+                <span>Excess time alone in bathroom / shower.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="being home alone for many hours" />
+                <span>Being home alone for long stretches.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="waking up and staying in bed scrolling" />
+                <span>Waking up and staying in bed on the phone.</span>
+              </label>
+            </div>
+
+            <div class="tool-actions">
+              <button class="btn-sm primary" id="generate-trigger-plan">
+                🛡️ Generate mini-plan
+              </button>
+              <button class="btn-sm ghost" id="clear-trigger-selection">
+                ♻️ Clear
+              </button>
+            </div>
+            <div class="output-box" id="trigger-output">
+              Select a few triggers and I’ll propose concrete counter-moves for you.
+            </div>
+            <p class="small-text" style="margin-top:6px;">
+              This isn’t about perfection – it’s about stacking small advantages in your
+              favour so the urge never reaches full strength.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- FAITH & SPIRIT SECTION -->
+      <section class="section" data-section="faith">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Faith as protection</div>
+            <h2>Chastity is not weakness – it’s spiritual power</h2>
+            <p>
+              Every major faith tradition saw unrestrained lust as a doorway to misery,
+              not enlightenment. They called people to protect their gaze, their bodies,
+              and their hearts.
+            </p>
+            <ul>
+              <li>
+                <strong>Islam:</strong> Commands to “lower the gaze and guard private parts,”
+                clear warnings to stay far from zina, and practical tools: marriage where
+                possible, fasting and spiritual routines where not. Chastity is part of
+                honour and manliness/womanliness.
+              </li>
+              <li>
+                <strong>Christianity & Judaism:</strong> “Flee sexual immorality,” strict
+                boundaries against adultery and lust of the eyes, emphasis on modesty and
+                fidelity as signs of a heart close to God.
+              </li>
+              <li>
+                <strong>Eastern traditions:</strong> Concepts like Brahmacharya and monastic
+                vows describe transforming sexual energy into clarity, compassion, and
+                spiritual progress.
+              </li>
+            </ul>
+            <p>
+              The message is consistent: when you master desire instead of being mastered
+              by it, you become clearer, braver, and more available for real love and
+              worship.
+            </p>
+
+            <h3>Islamic focus (for those who want it)</h3>
+            <ul>
+              <li>
+                The Qur’an praises those who guard their chastity and avoid anything that
+                leads to immorality. Even being careful with the gaze is a shield.
+              </li>
+              <li>
+                The Prophet ﷺ encouraged marriage for youth who can, and fasting for those
+                who cannot – describing fasting as a “shield.”
+              </li>
+              <li>
+                Stories like Prophet Yusuf (Joseph) choosing prison over illicit pleasure
+                show that saying “no” to lust can be a path to elevation, not deprivation.
+              </li>
+            </ul>
+
+            <div class="highlight-box">
+              You are not just “kicking a bad habit.” You’re doing jihad al-nafs – a noble
+              inner struggle that is beloved to God and rewarded in both worlds.
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">Quick spiritual reset</div>
+            <p class="small-text">
+              Use this when an urge hits and you want a faith-based response instead of a
+              spiral.
+            </p>
+            <div class="badge-list-item">
+              <strong>Step 1 · Pause</strong>
+              Say (even silently): <em>“This is a test. My Lord sees me right now.”</em>
+            </div>
+            <div class="badge-list-item" style="margin-top:6px;">
+              <strong>Step 2 · Move</strong>
+              Stand up, change room, or go to the bathroom to make wudu / wash your face.
+            </div>
+            <div class="badge-list-item" style="margin-top:6px;">
+              <strong>Step 3 · Connect</strong>
+              Pray two quick units (or say a short heartfelt prayer) asking for purity and
+              strength.
+            </div>
+            <div class="badge-list-item" style="margin-top:6px;">
+              <strong>Step 4 · Redirect</strong>
+              Immediately do one good action: call a friend, help a family member, read
+              a page of scripture, or revise one page of study.
+            </div>
+            <p class="small-text" style="margin-top:8px;">
+              Even if the urge comes back, you have already won: you turned a moment of
+              potential sin into four acts of worship and self-respect.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- TOOLKIT SECTION -->
+      <section class="section" data-section="toolkit">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Resistance toolkit</div>
+            <h2>Your personalised “shield protocol”</h2>
+            <p>
+              You don’t beat engineered lust with willpower alone. You beat it with a
+              system: your environment, your habits, your people, and your purpose all
+              working together.
+            </p>
+
+            <h3>Core pillars</h3>
+            <div class="two-col-list">
+              <div class="badge-list-item">
+                <strong>Environment</strong>
+                Filters, no devices in bed, common-area screens, clear “no late-night
+                scroll” rules.
+              </div>
+              <div class="badge-list-item">
+                <strong>Body & energy</strong>
+                Fasting, movement, proper sleep, eating cleaner – less junk dopamine, more
+                real strength.
+              </div>
+              <div class="badge-list-item">
+                <strong>Heart & soul</strong>
+                Prayer, dhikr / remembrance, reflection, gratitude, honest repentance.
+              </div>
+              <div class="badge-list-item">
+                <strong>Brotherhood / sisterhood</strong>
+                A friend or group you can be honest with, without shame drama. You’re not
+                meant to fight in secret forever.
+              </div>
+              <div class="badge-list-item">
+                <strong>Purpose</strong>
+                Skills, projects, service – using your reclaimed energy for something that
+                matters to you and to the world.
+              </div>
+              <div class="badge-list-item">
+                <strong>Knowledge</strong>
+                Understanding both the science of addiction and the spiritual wisdom behind
+                modesty and discipline.
+              </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:10px;">
+              Think of this as moving from being a hunted user of the sexual industry to
+              being a guardian of your own mind, your future family, and your soul.
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">Emergency “urge plan” builder</div>
+            <p class="small-text">
+              Pick a few replacements that you promise your future self you’ll do
+              <em>before</em> opening any explicit content.
+            </p>
+            <div class="checkbox-list" id="replacement-list">
+              <label class="checkbox-item">
+                <input type="checkbox" value="20 push-ups or a quick workout set" />
+                <span>Do 20 push-ups or a quick workout.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="cold shower or washing face and arms" />
+                <span>Take a cold shower or wash face & arms thoroughly.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="5-10 minute walk outside, no phone" />
+                <span>Walk outside 5–10 minutes without your phone.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="2 units of prayer / short sincere dua" />
+                <span>Pray 2 units or make a short, sincere du’a / prayer.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="call or voice-message a trusted friend" />
+                <span>Call or voice-message a trusted friend.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="read 1 page of scripture or an inspiring book" />
+                <span>Read 1 page of Qur’an / Bible / spiritual text or an inspiring book.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="write 3 lines in my journal about what I’m feeling" />
+                <span>Write 3 honest lines in my journal about what I’m feeling.</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" value="focus on a meaningful project for 15 minutes" />
+                <span>Work on a meaningful project for 15 focused minutes.</span>
+              </label>
+            </div>
+
+            <div class="tool-actions">
+              <button class="btn-sm primary" id="build-emergency-plan">
+                ✨ Build my emergency script
+              </button>
+              <button class="btn-sm ghost" id="clear-emergency-selection">
+                ♻️ Clear
+              </button>
+            </div>
+            <div class="output-box" id="emergency-output">
+              Your emergency script will appear here and can stay open in a browser tab as
+              a reminder.
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- DAILY PLAN SECTION -->
+      <section class="section" data-section="plan">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Structure beats urges</div>
+            <h2>Design a simple one-day purity routine</h2>
+            <p>
+              Idleness is the playground of temptation. A gentle, realistic routine can cut
+              70–80% of your triggers before they appear.
+            </p>
+
+            <h3>Suggested frame (adapt as needed)</h3>
+            <ul>
+              <li><strong>Morning:</strong> wake, short prayer or intention, 5–15 minutes movement, no phone in bed.</li>
+              <li><strong>Work / study block:</strong> deep focus with planned breaks, not random scrolling.</li>
+              <li><strong>Midday reset:</strong> quick check-in with yourself, short dhikr / prayer / breathing.</li>
+              <li><strong>Afternoon/evening:</strong> family, friends, or meaningful solo work (learning, building).</li>
+              <li><strong>Night:</strong> screens off at a set time, spiritual wind-down, sleep earlier where possible.</li>
+            </ul>
+
+            <div class="highlight-box">
+              Don’t aim for a perfect monk schedule. Aim for 10–20% better than yesterday
+              and keep stacking those days. Consistency beats intensity.
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">My one-day plan</div>
+            <p class="small-text">
+              Fill this out just for today. Tomorrow, you can tweak. Keep it humble and
+              realistic.
+            </p>
+            <label class="small-text" for="plan-morning"><strong>Morning anchor</strong> – how will I start clean?</label>
+            <textarea id="plan-morning" placeholder="Example: no phone until after Fajr / morning prayer, 10 min walk, 1 page Qur’an / Bible..."></textarea>
+
+            <label class="small-text" for="plan-triggers" style="margin-top:6px;display:block;">
+              <strong>Risk zones today</strong> – times & places I must be extra careful.
+            </label>
+            <textarea id="plan-triggers" placeholder="Example: alone after work 6–8 pm, shower at night, scrolling in bed, laptop in bedroom..."></textarea>
+
+            <label class="small-text" for="plan-support" style="margin-top:6px;display:block;">
+              <strong>Support & reward</strong> – who/what keeps me encouraged today?
+            </label>
+            <textarea id="plan-support" placeholder="Example: message my accountability friend, treat myself to tea after 7 clean days, read something uplifting..."></textarea>
+
+            <div class="tool-actions">
+              <button class="btn-sm primary" id="save-day-plan">💾 Save plan (local)</button>
+              <button class="btn-sm ghost" id="clear-day-plan">🧹 Clear</button>
+            </div>
+            <p class="small-text" style="margin-top:6px;">
+              All data stays in your browser only. If you clear your browser storage, this
+              plan will be reset.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- TRACKER SECTION -->
+      <section class="section" data-section="tracker">
+        <div class="section-grid">
+          <article class="card">
+            <div class="kicker">Reboot & rebuild</div>
+            <h2>Purity streak tracker (relapse-safe)</h2>
+            <p>
+              The goal isn’t to create a fragile streak obsession. The goal is to watch
+              your direction improving over time, even if there are bumps.
+            </p>
+            <label class="small-text" for="streak-start-date">
+              <strong>When did you last reset with sincere intention?</strong>
+            </label>
+            <input type="date" id="streak-start-date" />
+            <div class="tool-actions" style="margin-top:6px;">
+              <button class="btn-sm primary" id="save-streak-start">
+                ✅ Set / update start date
+              </button>
+              <button class="btn-sm danger" id="reset-today">
+                ⚠️ I slipped – reset to today
+              </button>
+              <button class="btn-sm ghost" id="clear-streak">
+                🧨 Clear tracker
+              </button>
+            </div>
+
+            <div class="stats-row" id="streak-stats" style="margin-top:10px;">
+              <div class="stat-chip green">
+                <span class="dot"></span>
+                <span><strong>Current streak:</strong> <span id="current-streak">0</span> day(s)</span>
+              </div>
+              <div class="stat-chip">
+                <span>📈 Best streak: <span id="best-streak">0</span> day(s)</span>
+              </div>
+              <div class="stat-chip red">
+                <span>🔁 Resets so far: <span id="reset-count">0</span></span>
+              </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:10px;">
+              If you reset, don’t delete your history out of shame. See it as data. Ask:
+              <em>What did I learn about my triggers?</em> Then update your environment and
+              plan. That is success.
+            </div>
+          </article>
+
+          <aside class="card-soft">
+            <div class="tool-section-title">Private notes / du’a / reflections</div>
+            <p class="small-text">
+              Use this box to talk to yourself and to your Lord: what went well, what was
+              hard, what you’re grateful for. It’s saved only in your browser.
+            </p>
+            <textarea id="journal-notes" placeholder="Example: Today I felt strong after saying no at night. I want to thank Allah for waking me up to this path..."></textarea>
+            <div class="tool-actions">
+              <button class="btn-sm primary" id="save-notes">💾 Save notes</button>
+              <button class="btn-sm ghost" id="clear-notes">🧹 Clear notes</button>
+            </div>
+            <p class="small-text" style="margin-top:6px;">
+              Writing even 2–3 honest lines a day will show you, over weeks, how much
+              your heart and mind are changing.
+            </p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>Unmask · Built for people who refuse to be owned by engineered lust.</div>
+      <div class="disclaimer">
+        This app is educational and spiritual support, not medical or psychological
+        treatment. If your behaviour feels out of control or causes severe distress,
+        please consider speaking with a qualified therapist, imam, pastor, rabbi, or
+        counsellor you trust.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ---------- NAVIGATION ----------
+    (function () {
+      const navButtons = document.querySelectorAll("[data-section-btn]");
+      const sections = document.querySelectorAll(".section");
+
+      function activateSection(target) {
+        sections.forEach((sec) => {
+          sec.classList.toggle("active", sec.getAttribute("data-section") === target);
+        });
+        navButtons.forEach((btn) => {
+          btn.classList.toggle(
+            "active",
+            btn.getAttribute("data-section-btn") === target
+          );
+        });
+      }
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-section-btn");
+          activateSection(target);
+          // update hash without jumping
+          if (history.replaceState) {
+            history.replaceState(null, "", "#" + target);
+          } else {
+            location.hash = "#" + target;
+          }
+        });
+      });
+
+      // hero buttons scroll to sections
+      document.querySelectorAll("[data-jump]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-jump");
+          activateSection(target);
+          const navTop =
+            document.querySelector(".nav-shell")?.getBoundingClientRect().top || 0;
+          window.scrollTo({
+            top: window.scrollY + navTop - 8,
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Activate section from URL hash on load
+      window.addEventListener("load", () => {
+        const hash = location.hash.replace("#", "");
+        if (hash) {
+          const exists = document.querySelector('[data-section="' + hash + '"]');
+          if (exists) activateSection(hash);
+        }
+      });
+    })();
+
+    // ---------- TRIGGER PLAN ----------
+    (function () {
+      const output = document.getElementById("trigger-output");
+      const list = document.getElementById("trigger-list");
+      const generateBtn = document.getElementById("generate-trigger-plan");
+      const clearBtn = document.getElementById("clear-trigger-selection");
+
+      if (!output || !list) return;
+
+      const suggestions = {
+        "late-night phone in bed":
+          "• Make your bedroom a no-phone zone after a set time.\n• Charge your phone in another room.\n• Use a simple alarm clock instead of the phone.",
+        "boredom / procrastination":
+          "• Plan 1–2 small, meaningful tasks for that time (reading, coding, learning).\n• Use a timer (25 min focus, 5 min break) instead of drifting online.",
+        "loneliness or emotional pain":
+          "• Message or call one safe person.\n• Write exactly what you’re feeling in your notes, then make du’a / prayer about it.\n• Remind yourself: porn cannot give real love.",
+        "social media explore / reels":
+          "• Log out from or delete the most triggering apps on your phone.\n• Use them only on desktop with filters, or not at all.\n• Replace that scroll with a specific alternative: reading, exercise, or family time.",
+        "stress after a long day":
+          "• Release stress through movement first: walk, stretch, or a quick workout.\n• Take a shower, then do 2 units of prayer / short meditation.\n• Use breathing exercises instead of escapism.",
+        "staying in the bathroom too long":
+          "• Decide in advance how long you’ll stay and stick to it.\n• Leave the phone outside the bathroom.\n• Go in with a dhikr / short supplication on your tongue.",
+        "being home alone for many hours":
+          "• Keep doors open, lights on, and work in common areas.\n• Play beneficial lectures / recitations in the background.\n• Schedule small check-ins with friends or family.",
+        "waking up and staying in bed scrolling":
+          "• Place your phone across the room so you must get up.\n• Decide your first three actions after waking (e.g., prayer, water, movement).\n• Delay all social media until after morning routine."
+      };
+
+      generateBtn.addEventListener("click", () => {
+        const checked = list.querySelectorAll("input[type='checkbox']:checked");
+        if (!checked.length) {
+          output.textContent =
+            "Select at least one trigger. The more honest you are, the more precise your shield can be.";
+          return;
+        }
+
+        let text = "Here is a simple plan for your main triggers:\n\n";
+        checked.forEach((cb, idx) => {
+          const key = cb.value;
+          const advice = suggestions[key] || "";
+          text += (idx + 1) + ") Trigger: " + key + "\n";
+          if (advice) {
+            text += advice + "\n\n";
+          } else {
+            text += "• Choose in advance one healthy action you’ll do instead.\n\n";
+          }
+        });
+
+        text +=
+          "Print or screenshot this if it helps. The goal is not perfection, but being less and less available for the old pattern.";
+        output.textContent = text;
+      });
+
+      clearBtn.addEventListener("click", () => {
+        list.querySelectorAll("input[type='checkbox']").forEach((cb) => {
+          cb.checked = false;
+        });
+        output.textContent =
+          "Select a few triggers and I’ll propose concrete counter-moves for you.";
+      });
+    })();
+
+    // ---------- EMERGENCY PLAN ----------
+    (function () {
+      const list = document.getElementById("replacement-list");
+      const output = document.getElementById("emergency-output");
+      const buildBtn = document.getElementById("build-emergency-plan");
+      const clearBtn = document.getElementById("clear-emergency-selection");
+
+      if (!list || !output) return;
+
+      buildBtn.addEventListener("click", () => {
+        const actions = list.querySelectorAll("input[type='checkbox']:checked");
+        if (!actions.length) {
+          output.textContent =
+            "Choose at least 2–3 replacements. Your brain needs somewhere better to go, not just “no”.";
+          return;
+        }
+
+        let text =
+          "My emergency urge script (read this out loud when temptation hits):\n\n";
+        text +=
+          "1. I pause and say: “This is not who I want to be. My Lord sees me now.”\n";
+        text += "2. Before I open anything explicit, I PROMISE to do these actions:\n\n";
+
+        actions.forEach((cb, idx) => {
+          text += "   " + (idx + 1) + ". " + cb.value + "\n";
+        });
+
+        text +=
+          "\n3. After I do them, I will honestly check: do I still want to go back, or has the storm already passed?\n";
+        text +=
+          "\nIf I still slip, I will not drown in shame. I will make sincere repentance, learn from what happened, and update my plan. Falling is data – standing up again is victory.";
+
+        output.textContent = text;
+      });
+
+      clearBtn.addEventListener("click", () => {
+        list.querySelectorAll("input[type='checkbox']").forEach((cb) => {
+          cb.checked = false;
+        });
+        output.textContent =
+          "Your emergency script will appear here and can stay open in a browser tab as a reminder.";
+      });
+    })();
+
+    // ---------- DAILY PLAN STORAGE ----------
+    (function () {
+      const morning = document.getElementById("plan-morning");
+      const triggers = document.getElementById("plan-triggers");
+      const support = document.getElementById("plan-support");
+      const saveBtn = document.getElementById("save-day-plan");
+      const clearBtn = document.getElementById("clear-day-plan");
+
+      if (!morning || !triggers || !support) return;
+
+      const KEY = "unmask_day_plan_v1";
+
+      function loadPlan() {
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (!raw) return;
+          const data = JSON.parse(raw);
+          morning.value = data.morning || "";
+          triggers.value = data.triggers || "";
+          support.value = data.support || "";
+        } catch (e) {
+          console.warn("Could not load day plan", e);
+        }
+      }
+
+      function savePlan() {
+        const data = {
+          morning: morning.value.trim(),
+          triggers: triggers.value.trim(),
+          support: support.value.trim()
+        };
+        localStorage.setItem(KEY, JSON.stringify(data));
+      }
+
+      saveBtn.addEventListener("click", () => {
+        savePlan();
+        saveBtn.textContent = "✅ Saved";
+        setTimeout(() => (saveBtn.textContent = "💾 Save plan (local)"), 1200);
+      });
+
+      clearBtn.addEventListener("click", () => {
+        morning.value = "";
+        triggers.value = "";
+        support.value = "";
+        localStorage.removeItem(KEY);
+      });
+
+      loadPlan();
+    })();
+
+    // ---------- STREAK TRACKER ----------
+    (function () {
+      const startInput = document.getElementById("streak-start-date");
+      const saveBtn = document.getElementById("save-streak-start");
+      const resetTodayBtn = document.getElementById("reset-today");
+      const clearBtn = document.getElementById("clear-streak");
+
+      const currentSpan = document.getElementById("current-streak");
+      const bestSpan = document.getElementById("best-streak");
+      const resetCountSpan = document.getElementById("reset-count");
+
+      const KEY = "unmask_streak_v1";
+
+      function todayISO() {
+        const d = new Date();
+        return d.toISOString().slice(0, 10);
+      }
+
+      function diffDays(a, b) {
+        const d1 = new Date(a + "T00:00:00");
+        const d2 = new Date(b + "T00:00:00");
+        const ms = d2 - d1;
+        return Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));
+      }
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (!raw) return { start: null, best: 0, resets: 0 };
+          const data = JSON.parse(raw);
+          return {
+            start: data.start || null,
+            best: data.best || 0,
+            resets: data.resets || 0
+          };
+        } catch (e) {
+          console.warn("Could not load streak", e);
+          return { start: null, best: 0, resets: 0 };
+        }
+      }
+
+      function saveState(state) {
+        localStorage.setItem(KEY, JSON.stringify(state));
+      }
+
+      function render() {
+        const state = loadState();
+        if (state.start) {
+          startInput.value = state.start;
+          const now = todayISO();
+          const current = diffDays(state.start, now) + 1; // include today
+          currentSpan.textContent = current;
+          bestSpan.textContent = Math.max(state.best, current);
+        } else {
+          startInput.value = "";
+          currentSpan.textContent = "0";
+          bestSpan.textContent = state.best || "0";
+        }
+        resetCountSpan.textContent = state.resets || "0";
+      }
+
+      saveBtn.addEventListener("click", () => {
+        const val = startInput.value;
+        if (!val) {
+          alert("Choose a date first.");
+          return;
+        }
+        const state = loadState();
+        const now = todayISO();
+        const current = diffDays(val, now) + 1;
+        const best = Math.max(state.best || 0, current);
+        const newState = {
+          start: val,
+          best: best,
+          resets: state.resets || 0
+        };
+        saveState(newState);
+        render();
+      });
+
+      resetTodayBtn.addEventListener("click", () => {
+        if (
+          !confirm(
+            "This will set your streak start date to today. Your best streak will be preserved. Continue?"
+          )
+        ) {
+          return;
+        }
+        const state = loadState();
+        const newState = {
+          start: todayISO(),
+          best: state.best || 0,
+          resets: (state.resets || 0) + 1
+        };
+        saveState(newState);
+        render();
+      });
+
+      clearBtn.addEventListener("click", () => {
+        if (!confirm("Clear all streak data from this browser?")) return;
+        localStorage.removeItem(KEY);
+        render();
+      });
+
+      // Initial render
+      render();
+    })();
+
+    // ---------- JOURNAL NOTES ----------
+    (function () {
+      const notes = document.getElementById("journal-notes");
+      const saveBtn = document.getElementById("save-notes");
+      const clearBtn = document.getElementById("clear-notes");
+      if (!notes) return;
+
+      const KEY = "unmask_journal_v1";
+
+      function loadNotes() {
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (raw) notes.value = raw;
+        } catch (e) {
+          console.warn("Could not load notes", e);
+        }
+      }
+
+      function saveNotes() {
+        localStorage.setItem(KEY, notes.value || "");
+      }
+
+      saveBtn.addEventListener("click", () => {
+        saveNotes();
+        saveBtn.textContent = "✅ Saved";
+        setTimeout(() => (saveBtn.textContent = "💾 Save notes"), 1200);
+      });
+
+      clearBtn.addEventListener("click", () => {
+        if (!confirm("Clear all notes from this browser?")) return;
+        notes.value = "";
+        localStorage.removeItem(KEY);
+      });
+
+      loadNotes();
+    })();
+  </script>
+</body>
+</html>
